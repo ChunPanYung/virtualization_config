@@ -1,20 +1,28 @@
-[Unit]
-Description=Rustdesk HBBS cotnainer
-After=local-fs.target
-
 [Container]
-AutoUpdate=registry
-Image=ghcr.io/rustdesk/rustdesk-server:latest
 ContainerName=hbbs
+AutoUpdate=registry
+
+Image=ghcr.io/rustdesk/rustdesk-server:latest
+Exec=hbbs
+Volume=/srv/containers/rustdesk-server/data:/root
+
+Network=host
+PublishPort=21114:21114
 PublishPort=21115:21115
 PublishPort=21116:21116
 PublishPort=21116:21116/udp
 PublishPort=21118:21118
-Volume=rustdesk-hbbs.volume:/root
-Exec=hbbs
+
+Environment="ENCRYPTED_ONLY=1"
+Environment="RELAY=127.0.0.1:21117"
 
 [Service]
 Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target default.target
+WantedBy=default.target
+
+[Unit]
+Description=Rustdesk HBBS cotnainer
+After=local-fs.target
+

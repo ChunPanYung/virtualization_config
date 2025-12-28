@@ -20,3 +20,10 @@ if command -v ufw &>/dev/null && [[ ${os_like} == *"debian"* ]]; then
 	ufw allow 21114:21119/tcp comment 'rustdesk Server'
 	ufw allow 21116/udp comment 'rustdesk server'
 fi
+
+# Setup SELinux context
+if command -v semanage &>/dev/null && command -v restorecon ]] &>/dev/null; then
+	mkdir --parents /srv/containers
+	semanage fcontext -a -t container_file_t "/srv/containers(/.*)?"
+	restorecon -R /srv/containers
+fi
