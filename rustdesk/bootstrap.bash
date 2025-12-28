@@ -22,7 +22,7 @@ if command -v ufw &>/dev/null && [[ ${os_like} == *"debian"* ]]; then
 fi
 
 # Setup SELinux context
-if command -v semanage &>/dev/null && command -v restorecon ]] &>/dev/null; then
+if command -v semanage &>/dev/null && command -v restorecon &>/dev/null; then
 	mkdir --parents /srv/containers
 	semanage fcontext -a -t container_file_t "/srv/containers(/.*)?"
 	restorecon -R /srv/containers
