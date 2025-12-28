@@ -1,0 +1,21 @@
+[Container]
+ContainerName=hbbr
+AutoUpdate=registry
+Image=ghcr.io/rustdesk/rustdesk-server:latest
+Exec=hbbr
+Volume=/srv/containers/rustdesk-server/data:/root
+
+Network=host
+PublishPort=21117:21117
+PublishPort=21119:21119
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+
+[Unit]
+Description=Rustdesk HBBR cotnainer
+After=local-fs.target
+
