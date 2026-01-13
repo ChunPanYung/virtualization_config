@@ -1,0 +1,7 @@
+[Kube]
+AutoUpdate=registry
+Yaml=termix-pod.yaml
+
+[Install]
+# Start this on boot
+WantedBy=default.target
